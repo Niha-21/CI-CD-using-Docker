@@ -36,7 +36,7 @@ pipeline {
           }
         }
      
-  stage('Publish image to Docker Hub') {
+  stage('Publish Image to Docker Hub') {
           
             steps {
         withDockerRegistry([ credentialsId: "docker-hub", url: "https://registry.hub.docker.com" ]) {
@@ -47,18 +47,18 @@ pipeline {
           }
         }
      
-      stage('Run Docker container on Jenkins Agent') {
+      stage('Run Docker Container on Jenkins Agent') {
              
             steps 
 			{
-                bat "docker run -d -p 9092:8080 nihak/webapp"
+                bat "docker run -d -p 9093:8080 nihak/webapp"
  
             }
         }
- stage('Run Docker container on remote hosts') {
+ stage('Run Docker Container on Remote Hosts') {
              
             steps {
-                bat "docker -H ssh://deployer@localhost:8081 run -d -p 9092:8080 nihak/webapp"
+                bat "docker -H ssh://deployer@localhost:8081 run -d -p 9093:8080 nihak/webapp"
  
             }
         }
