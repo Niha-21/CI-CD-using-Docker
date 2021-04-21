@@ -9,7 +9,7 @@ pipeline {
       stage('checkout') {
            steps {
              
-                git branch: 'master', url: 'https://github.com/devops4solutions/CI-CD-using-Docker.git'
+                git branch: 'master', url: 'https://github.com/Niha-21/CI-CD-using-Docker.git'
              
           }
         }
@@ -24,8 +24,8 @@ pipeline {
   stage('Docker Build and Tag') {
            steps {
               
-                bat 'docker build -t samplewebapp:latest .' 
-                bat 'docker tag samplewebapp nikhilnidhi/samplewebapp:latest'
+                bat 'docker build -t webapp:latest .' 
+                bat 'docker tag webapp nihak/webapp:latest'
                 //sh 'docker tag samplewebapp nikhilnidhi/samplewebapp:$BUILD_NUMBER'
                
           }
@@ -35,7 +35,7 @@ pipeline {
           
             steps {
         withDockerRegistry([ credentialsId: "docker-hub", url: "https://registry.hub.docker.com" ]) {
-          bat  'docker push nikhilnidhi/samplewebapp:latest'
+          bat  'docker push nihak/webapp:latest'
         //  sh  'docker push nikhilnidhi/samplewebapp:$BUILD_NUMBER' 
         }
                   
@@ -46,14 +46,14 @@ pipeline {
              
             steps 
 			{
-                bat "docker run -d -p 8003:8080 nikhilnidhi/samplewebapp"
+                bat "docker run -d -p 8003:8080 nihak/webapp"
  
             }
         }
  stage('Run Docker container on remote hosts') {
              
             steps {
-                bat "docker -H ssh://jenkins@172.31.28.25 run -d -p 8003:8080 nikhilnidhi/samplewebapp"
+                bat "docker -H ssh://jenkins@172.31.28.25 run -d -p 8003:8080 nihak/webapp"
  
             }
         }
