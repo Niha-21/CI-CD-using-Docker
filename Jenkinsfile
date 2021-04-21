@@ -6,7 +6,7 @@ pipeline {
        maven "Maven"
     }
  stages {
-      stage('checkout') {
+      stage('GIT Checkout') {
            steps {
              
                 git branch: 'master', url: 'https://github.com/Niha-21/CI-CD-using-Docker.git'
@@ -19,7 +19,12 @@ pipeline {
                 bat 'mvn package'             
           }
         }
-        
+        stage('Testing Maven') {
+           steps {
+             
+                bat 'mvn test'             
+          }
+        }
 
   stage('Docker Build and Tag') {
            steps {
