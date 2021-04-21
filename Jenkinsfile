@@ -46,7 +46,7 @@ pipeline {
              
             steps 
 			{
-                bat "docker run -d -p 8003:8080 nihak/webapp"
+                bat "docker run -d -p 8003:8081 nihak/webapp"
  
             }
         }
